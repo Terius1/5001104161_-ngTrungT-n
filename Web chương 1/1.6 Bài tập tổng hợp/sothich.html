@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sở thích</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .info, .plan {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            padding: 10px 15px;
+            margin: 5px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+        #message {
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sở thích</h1>
+    <div class="Interest">
+        <label for="interest">Kế hoạch học tập:</label>
+        <input type="text" id="interest" value="Thể thao, lập trình, game" disabled>
+        <button id="editBtn" onclick="toggleEdit()">Thay Đổi</button>
+        <div id="message"></div>
+    </div>
+
+    <a href="trangchu.html" class="btn">Về Trang Chủ</a>
+
+    <script>
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('.Interest input');
+            const isDisabled = inputs[0].disabled;
+            inputs.forEach(input => input.disabled = !isDisabled);
+            document.getElementById('editBtn').innerText = isDisabled ? 'Lưu Thông Tin' : 'Thay Đổi';
+
+            if (!isDisabled) {
+                saveInterest();
+            }
+        }
+
+        function saveInterest() {
+            const interest = document.getElementById('interest').value;
+            localStorage.setItem('interest', interest);
+            
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = 'Thông tin đã được lưu!';
+            setTimeout(() => {
+                messageDiv.textContent = '';
+            }, 3000);
+        }
+
+        window.onload = function() {
+            const savedInterest = localStorage.getItem('interest');
+            if (savedInterest) {
+                document.getElementById('interest').value = savedInterest;
+            }
+        };
+    </script>
+
+</body>
+</html>

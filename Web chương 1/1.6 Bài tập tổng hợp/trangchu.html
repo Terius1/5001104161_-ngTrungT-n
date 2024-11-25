@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #9FD7F9;
+        }
+        h1 {
+            color: #333;
+        }
+        .info {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #28a745;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+        #message {
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trang chủ</h1>
+    <h2>Thông Tin Cá Nhân Sinh Viên</h2>
+    <div class="info">
+        <label>Tên:</label>
+        <input type="text" id="name" aria-label="Tên" value="Đặng Yên Chí Tài" disabled>
+
+        <label>Tuổi:</label>
+        <input type="number" id="age" aria-label="Tuổi" value="18" disabled>
+
+        <label>Ngày sinh:</label>
+        <input type="date" id="dob" aria-label="Ngày sinh" value="2006-10-31" disabled>
+
+        <label>Điện thoại:</label>
+        <input type="text" id="phone" aria-label="Điện thoại" value="0366907515" disabled>
+
+        <label>Địa chỉ:</label>
+        <input type="text" id="address" aria-label="Địa chỉ" value="363/6/31 Đất Mới, Bình Trị Đông A, Bình Tân, TP.Hồ Chí Minh" disabled>
+
+        <label>Email:</label>
+        <input type="email" id="email" aria-label="Email" value="dangyenchitai7@gmail.com" disabled>
+
+        <button id="editBtn" onclick="toggleEdit()">Thay Đổi</button>
+        <div id="message"></div>
+    </div>
+
+    <h2>Liên Kết</h2>
+    <a href="kehoachhoctap.html" class="btn">Kế Hoạch Học Tập</a>
+    <a href="sothich.html" class="btn">Sở Thích</a>
+    <a href="lienhe.html" class="btn">Liên Hệ</a>
+
+    <script>
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('.info input');
+            const isDisabled = inputs[0].disabled;
+            inputs.forEach(input => input.disabled = !isDisabled);
+            const button = document.getElementById('editBtn');
+            button.innerText = isDisabled ? 'Lưu Thông Tin' : 'Thay Đổi';
+
+            if (!isDisabled) {
+                saveInfo();
+            }
+        }
+
+        function saveInfo() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const dob = document.getElementById('dob').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const email = document.getElementById('email').value;
+
+            localStorage.setItem('name', name);
+            localStorage.setItem('age', age);
+            localStorage.setItem('dob', dob);
+            localStorage.setItem('phone', phone);
+            localStorage.setItem('address', address);
+            localStorage.setItem('email', email);
+
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = 'Thông tin đã được lưu!';
+            setTimeout(() => {
+                messageDiv.textContent = '';
+            }, 3000);
+        }
+
+        window.onload = function() {
+            document.getElementById('name').value = localStorage.getItem('name') || 'Đặng Yên Chí Tài';
+            document.getElementById('age').value = localStorage.getItem('age') || 18;
+            document.getElementById('dob').value = localStorage.getItem('dob') || '2006-10-31';
+            document.getElementById('phone').value = localStorage.getItem('phone') || '0366907515';
+            document.getElementById('address').value = localStorage.getItem('address') || '363/6/31 Đất Mới, Bình Trị Đông A, Bình Tân, TP.Hồ Chí Minh';
+            document.getElementById('email').value = localStorage.getItem('email') || 'dangyenchitai7@gmail.com';
+        };
+    </script>
+</body>
+</html>
